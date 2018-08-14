@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --name vue-table ./src/components/vue-table.vue",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -16,6 +16,14 @@
     "@vue/cli-service": "^3.0.0",
     "vue-template-compiler": "^2.5.17"
   },
+  "main": "./dist/vue-table.common.js",
+  "files": [
+    "dist/*",
+    "src/*",
+    "public/*",
+    "*.json",
+    "*.js"
+  ],
   "eslintConfig": {
     "root": true,
     "env": {
