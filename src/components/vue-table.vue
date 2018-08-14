@@ -32,9 +32,38 @@ export default {
       type: Array,
       default: () => [],
     },
-    items: {
+    initialItems: {
       type: Array,
       default: () => [],
+    },
+    loadFn: {
+      type: Function,
+    },
+    limit: {
+      type: Number,
+      default: 10,
+    },
+    offset: {
+      type: Number,
+      default: 0,
+    },
+  },
+  data() {
+    return {
+      items: this.initialItems,
+    };
+  },
+  mounted() {
+    this.$_loadData();
+  },
+  methods: {
+    async $_loadData() {
+      if (this.loadFn) {
+        this.items = await this.loadFn({
+          limit: this.limit,
+          offset: this.offset,
+        });
+      }
     },
   },
 }
