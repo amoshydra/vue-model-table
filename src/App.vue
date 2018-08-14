@@ -9,6 +9,7 @@
 
 <script>
 import VueTable from './components/vue-table.vue'
+import server from '../test/mock-server';
 
 export default {
   name: 'app',
@@ -23,33 +24,12 @@ export default {
         { key: 'email', label: 'Email' },
         { key: 'age', label: 'Age' },
       ],
-      items: [
-        {
-          id: 1,
-          name: 'Amos Wong',
-          email: 'amos@mail.com',
-          age: 25,
-        },
-        {
-          id: 2,
-          name: 'Adam Lao',
-          email: 'adam.lao@email.com',
-          age: 21,
-        },
-        {
-          id: 3,
-          name: 'Stephen Matthew',
-          email: 'sm94@mail.com',
-          age: 24,
-        },
-        {
-          id: 4,
-          name: 'Roger Wiliam',
-          email: 'roger.william@mail.com',
-          age: 54,
-        },
-      ],
+      items: [],
     };
+  },
+  mounted() {
+    server.get({ perPage: 10, page: 0 })
+      .then((items) => { this.items = items; })
   },
 };
 </script>
