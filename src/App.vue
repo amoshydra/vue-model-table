@@ -2,7 +2,9 @@
   <div id="app">
     <VueTable
       :fields="fields"
-      :items="items"
+      :loadFn="loadData"
+
+      :limit="50"
     />
   </div>
 </template>
@@ -31,6 +33,12 @@ export default {
     server.get({ perPage: 10, page: 0 })
       .then((items) => { this.items = items; })
   },
+  methods: {
+    loadData({ limit, offset }) {
+      console.log(`loading data ${limit} ${offset}`)
+      return server.get({ perPage: limit, page: offset })
+    },
+  }
 };
 </script>
 
