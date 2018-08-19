@@ -18,7 +18,15 @@
         <td
           v-for="field in fields"
           :key="field.key"
-        >{{ item[field.key] }}</td>
+        >
+          <component
+            v-if="field.component"
+            :is="field.component || 'td'"
+            :item="field.component && item[field.key]"
+            @emit="$_bypassEvent"
+          />
+          <template v-else>{{ item[field.key] }}</template>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -32,14 +40,7 @@ export default {
       type: Array,
       default: () => [],
     },
-    initialItems: {
-      type: Array,
-      default: () => [],
-    },
-    loadFn: {
-      type: Function,
-    },
-    limit: {
+    perPage: {
       type: Number,
       default: 10,
     },
@@ -47,23 +48,44 @@ export default {
       type: Number,
       default: 0,
     },
+
+    // Additional tweak function
+    loadFn: {
+      type: Function,
+      default: () => [],
+    },
+    responseTransformFn: {
+      type: Function,
+      default: result => result,
+    },
   },
   data() {
     return {
-      items: this.initialItems,
+      items: [],
+      pageOffset: this.offset,
     };
   },
   mounted() {
     this.$_loadData();
   },
   methods: {
+    // Public functions
+    async move(factor = 1) {
+      this.pageOffset = this.pageOffset + (this.perPage * factor);
+      return this.$_loadData();
+    },
+
+    // Private functions
     async $_loadData() {
-      if (this.loadFn) {
-        this.items = await this.loadFn({
-          limit: this.limit,
-          offset: this.offset,
-        });
-      }
+      this.items = await this.loadFn({
+        perPage: this.perPage,
+        offset: this.pageOffset,
+      })
+        .then(this.responseTransformFn)
+        ;
+    },
+    $_bypassEvent(eventPayload) {
+       this.$emit(...eventPayload);
     },
   },
 }
