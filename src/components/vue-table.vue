@@ -89,13 +89,15 @@ export default {
   },
   methods: {
     // Public functions
-    async move(factor = 1) {
-      const newPageOffset = this.pageOffset + (this.perPage * factor);
-      const results = await this.$_loadData({
+    async move(configuration) {
+      const factor = (configuration || {}).factor || configuration || 1;
+      const moveOption = {
         perPage: this.perPage,
-        offset: newPageOffset,
-      });
-      this.pageOffset = newPageOffset;
+        offset: configuration.offset || this.pageOffset + (this.perPage * factor)
+      };
+
+      const results = await this.$_loadData(moveOption);
+      this.pageOffset = moveOption.offset;
       return results;
     },
 
