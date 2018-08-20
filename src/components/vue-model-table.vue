@@ -1,5 +1,5 @@
 <template>
-  <table class="table">
+  <table class="model-table">
     <slot name="caption"/>
     <thead :class="classes.head">
       <tr>
@@ -39,7 +39,7 @@
 
 <script>
 export default {
-  name: 'vue-table',
+  name: 'vue-model-table',
   props: {
     fields: {
       type: Array,
@@ -142,10 +142,3 @@ export default {
   },
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.vue-table {
-  width: 100%;
-}
-</style>
