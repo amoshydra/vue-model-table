@@ -101,10 +101,19 @@ export default {
   methods: {
     // Public functions
     async move(configuration) {
-      const factor = (configuration || {}).factor || configuration || 1;
+      const factor =
+        ((configuration || {}).factor != null)
+          ? (configuration || {}).factor
+          : ((configuration != null)
+            ? configuration
+            : 1
+          );
       const moveOption = {
         perPage: this.perPage,
-        offset: configuration.offset || this.pageOffset + (this.perPage * factor)
+        offset: configuration.offset != null
+          ? configuration.offset
+          : this.pageOffset + (this.perPage * factor)
+          ,
       };
 
       const results = await this.$_loadData(moveOption);
