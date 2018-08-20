@@ -8,7 +8,7 @@
   },
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name vue-table ./src/components/vue-model-table.vue",
+    "build": "vue-cli-service build --target lib --name vue-model-table --no-clean ./src/components/vue-model-table.vue && vue-cli-service build --target lib --name vue-model-table-pagination --no-clean ./src/components/vue-model-table-pagination.vue",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
