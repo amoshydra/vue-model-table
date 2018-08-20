@@ -1,10 +1,12 @@
 <template>
-  <table class="vue-table">
-    <thead>
+  <table class="table">
+    <slot name="caption"/>
+    <thead :class="classes.head">
       <tr>
         <th
           v-for="field in fields"
           :key="field.key"
+          @click="$emit('clickHead', field.key)"
         >
           {{ field.label }}
         </th>
@@ -14,10 +16,12 @@
       <tr
         v-for="(item, index) in items"
         :key="item.id || index"
+        :class="classes.row"
       >
         <td
           v-for="field in fields"
           :key="field.key"
+          :class="classes.data"
         >
           <component
             v-if="field.component"
@@ -28,6 +32,7 @@
           <template v-else>{{ item[field.key] }}</template>
         </td>
       </tr>
+      <slot name="row"/>
     </tbody>
   </table>
 </template>
@@ -47,6 +52,12 @@ export default {
     offset: {
       type: Number,
       default: 0,
+    },
+
+    // Styling customisation
+    classes: {
+      type: Object,
+      default: () => ({}),
     },
 
     // Additional tweak function
