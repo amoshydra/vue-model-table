@@ -21,7 +21,7 @@
     "@vue/cli-service": "^3.0.0",
     "vue-template-compiler": "^2.5.17"
   },
-  "main": "./dist/vue-table.common.js",
+  "main": "./dist/vue-model-table.common.js",
   "files": [
     "dist/*",
     "src/*",
