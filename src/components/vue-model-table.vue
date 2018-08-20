@@ -63,11 +63,11 @@ export default {
     // Additional tweak function
     loadCountFn: {
       type: Function,
-      default: () => 0,
+      default: () => Promise.resolve(0),
     },
     loadFn: {
       type: Function,
-      default: () => [],
+      default: () => Promise.resolve([]),
     },
     responseTransformFn: {
       type: Function,
