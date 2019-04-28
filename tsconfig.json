@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "target": "es5",
+    "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
     "skipDefaultLibCheck": true,
@@ -12,6 +12,9 @@
     "noFallthroughCasesInSwitch": true,
     "removeComments": true,
     "suppressImplicitAnyIndexErrors": true,
+    "experimentalDecorators": true,
+    "jsx": "preserve",
+    "jsxFactory": "h",
     "lib": [ "es6", "dom" ],
     "types" : ["lodash"]
   },
